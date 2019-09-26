@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>table</title>
+</head>
+<body>
+	<button>submit</button>
+	<table border="1" width="100%">
+		<tr>
+			<th>name</th>
+			<th>age</th>
+			<th>gender</th>
+		</tr>
+		<tr>
+			<td><input type="text" name="name"></td>
+			<td><input type="text" name="age"></td>
+			<td><input type="text" name="gender"></td>
+		</tr>
+	</table>
+
+	<script>
+		// person details
+		var details = [
+
+			{
+				name:"kevin",
+				age:"55",
+				gender:"female"
+			}
+
+		];
+
+		//get table and button
+		var table = document.querySelector("table");
+		var button = document.querySelector('button');
+		
+		//populate table 
+		details.forEach(function(person){
+			var row = document.createElement('tr');
+		    var td1 = document.createElement('td'); td1.innerHTML = person.name;
+		    var td2 = document.createElement('td'); td2.innerHTML = person.age;
+		    var td3 = document.createElement('td'); td3.innerHTML = person.gender;
+		    row.append(td1,td2,td3);
+		    table.append(row);
+		});		
+
+		//event on click of button generate new row with populated data
+		button.addEventListener('click',function(){
+			//get all inputs
+			var inputs = document.querySelectorAll("input");
+
+			//generating objact
+			var newPerson = {
+
+				name:inputs[0].value,
+				age:inputs[1].value,
+				gender:inputs[2].value
+			};
+
+			//check if user exist
+			var obj = details.find((user) => {
+			    if (user.name == newPerson.name) {			        
+			        return true; // stop searching
+			    }			    
+			});
+
+			//add user if ! exist
+			if(!obj){
+				//push the new details to your array
+				details.push(newPerson);
+
+				var row = document.createElement('tr');
+			    var td1 = document.createElement('td');
+			    td1.innerHTML = details[details.length-1].name;
+			    var td2 = document.createElement('td'); 
+			    td2.innerHTML = details[details.length-1].age;
+			    var td3 = document.createElement('td'); 
+			    td3.innerHTML = details[details.length-1].gender;
+			    row.append(td1,td2,td3);
+			    table.append(row);
+			}else{
+				alert("user exist");
+			}
+			
+			
+			
+		})
+	</script>
+</body>
+</html>
